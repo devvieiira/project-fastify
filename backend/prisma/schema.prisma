@@ -14,27 +14,25 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(uuid())
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  password String
+  video    Video[]
+}
+
+model Video {
+  id            String   @id @default(uuid())
   name          String
-  email         String          @unique
-  password      String
-  transcription Transcription[]
+  path          String
+  transcription String?
+  userId        String?
+  created_at    DateTime @default(now())
+  User          User?    @relation(fields: [userId], references: [id])
 }
 
-model Transcription {
-  id        String   @id @default(uuid())
-  userId    String
-  file      String
-  result    String
-  createdAt DateTime
-  user      User     @relation(fields: [userId], references: [id])
-  role      Role[]
-}
-
-model Role {
-  id              String         @id @default(uuid())
-  name            String         @unique
-  description     String
-  Transcription   Transcription? @relation(fields: [transcriptionId], references: [id])
-  transcriptionId String?
+model Prompt {
+  id       String @id @default(uuid())
+  title    String
+  template String
 }
