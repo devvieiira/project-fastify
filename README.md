@@ -1,5 +1,4 @@
 # Project made in Fastify!
-----
 
 ### Project collaborators:
 
